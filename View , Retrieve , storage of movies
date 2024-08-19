@@ -1,0 +1,66 @@
+class Movie:
+    def __init__(self, title, director, year):
+        self.title = title
+        self.director = director
+        self.year = year
+
+    def __str__(self):
+        return f"{self.title} ({self.year}), directed by {self.director}"
+
+
+class MovieStorage:
+    def __init__(self):
+        self.movies = []
+
+    def add_movie(self, title, director, year):
+        new_movie = Movie(title, director, year)
+        self.movies.append(new_movie)
+        print(f"Added: {new_movie}")
+
+    def view_movies(self):
+        if not self.movies:
+            print("No movies in storage.")
+        else:
+            print("Movies in storage:")
+            for movie in self.movies:
+                print(movie)
+
+    def search_movie(self, title):
+        found_movies = [movie for movie in self.movies if title.lower() in movie.title.lower()]
+        if found_movies:
+            print("Search results:")
+            for movie in found_movies:
+                print(movie)
+        else:
+            print("No movies found with that title.")
+
+
+def main():
+    storage = MovieStorage()
+    while True:
+        print("\nMovie Storage Application")
+        print("1. Add Movie")
+        print("2. View Movies")
+        print("3. Search Movie")
+        print("4. Exit")
+        choice = input("Choose an option: ")
+
+        if choice == '1':
+            title = input("Enter movie title: ")
+            director = input("Enter director's name: ")
+            year = input("Enter release year: ")
+            storage.add_movie(title, director, year)
+        elif choice == '2':
+            storage.view_movies()
+        elif choice == '3':
+            title = input("Enter movie title to search: ")
+            storage.search_movie(title)
+        elif choice == '4':
+            print("Exiting the application.")
+            break
+        else:
+            print("Invalid choice. Please try again.")
+
+
+if __name__ == "__main__":
+    main()
